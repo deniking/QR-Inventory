@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<RootNamespace>QR_Inventory</RootNamespace>
+	<AssemblyName>QR_Inventory</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+
+    <!-- версии -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+
+    <!-- иконка приложения -->
+    <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- чтобы .ico попал как ресурс приложения -->
+  <ItemGroup>
+    <None Remove="Assets\Icons\app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Themes\DarkTheme.xaml" />
+    <Page Remove="Themes\LightTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Icons\app.ico" />
+
+    <!-- наши кнопки панели (заглушки, ты потом подменишь своими) -->
+    <Resource Include="Assets\Icons\add.png" />
+    <Resource Include="Assets\Icons\edit.png" />
+    <Resource Include="Assets\Icons\delete.png" />
+    <Resource Include="Assets\Icons\search.png" />
+    <Resource Include="Assets\Icons\qr.png" />
+    <Resource Include="Assets\Icons\export.png" />
+    <Resource Include="Assets\Icons\import.png" />
+    <Resource Include="Assets\Icons\sync.png" />
+    <Resource Include="Assets\Icons\report.png" />
+    <Resource Include="Assets\Icons\history.png" />
+    <Resource Include="Themes\DarkTheme.xaml" />
+    <Resource Include="Themes\LightTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  
+
+</Project>

@@ -1,0 +1,166 @@
+﻿<Window x:Class="QR_Inventory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="QR-Inventory"
+        Height="700"
+        Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BgBrush}"
+        Icon="Assets/Icons/app.ico">
+
+    <Grid Background="{StaticResource BgBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <!-- ВЕРХНЕЕ МЕНЮ -->
+        <!-- ====== СТРОКА ГЛАВНОГО МЕНЮ ====== -->
+        <Border Grid.Row="0"
+        Background="{StaticResource PanelBrush}"
+        BorderBrush="{StaticResource BorderBrush}"
+        BorderThickness="0,0,0,1">
+
+            <!-- убираем кастомный ItemContainerStyle, сначала добиваем механику -->
+            <Menu Background="{StaticResource PanelBrush}"
+          Foreground="{StaticResource TextBrush}"
+          FontSize="14"
+          FontWeight="SemiBold"
+          BorderThickness="0"
+          SnapsToDevicePixels="True">
+
+                <!-- 🔹 Основные пункты меню -->
+                <MenuItem Header="Главная"/>
+                <MenuItem Header="Компьютеры"/>
+                <MenuItem Header="Обслуживание"/>
+                <MenuItem Header="Отделы и кабинеты"/>
+                <MenuItem Header="Ответственные лица"/>
+
+                <!-- 🔧 Настройки с дочерними элементами -->
+                <MenuItem Header="Настройки">
+
+                    <!-- подменю 1 -->
+                    <MenuItem Header="Пользователь"
+                      Background="{StaticResource PanelBrush}"
+                      Foreground="{StaticResource TextBrush}"
+                      Click="Settings_User_Click"/>
+
+                    <!-- подменю 2 -->
+                    <MenuItem Header="База данных"
+                      Background="{StaticResource PanelBrush}"
+                      Foreground="{StaticResource TextBrush}"
+                      Click="Settings_DB_Click"/>
+
+                    <!-- вложенное подменю "Интерфейс" -->
+                    <MenuItem Header="Интерфейс"
+                      Background="{StaticResource PanelBrush}"
+                      Foreground="{StaticResource TextBrush}"
+                      StaysOpenOnClick="True">
+
+                        <!-- Пункты выбора темы -->
+                        <MenuItem Header="Тёмная тема"
+                          Background="{StaticResource PanelBrush}"
+                          Foreground="{StaticResource TextBrush}"
+                          Click="SetDarkTheme_Click"/>
+
+                        <MenuItem Header="Светлая тема"
+                          Background="{StaticResource PanelBrush}"
+                          Foreground="{StaticResource TextBrush}"
+                          Click="SetLightTheme_Click"/>
+                    </MenuItem>
+
+                    <!-- подменю 4 -->
+                    <MenuItem Header="Telegram-бот"
+                      Background="{StaticResource PanelBrush}"
+                      Foreground="{StaticResource TextBrush}"
+                      Click="Settings_Bot_Click"/>
+                </MenuItem>
+
+                <!-- О программе -->
+                <MenuItem Header="О программе"
+                  Click="About_Click"
+                  Background="{StaticResource PanelBrush}"
+                  Foreground="{StaticResource TextBrush}"/>
+
+            </Menu>
+        </Border>
+
+
+
+        <!-- ПАНЕЛЬ ИКОНОК -->
+        <Border Grid.Row="1"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="10">
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Добавить">
+                        <Image Source="Assets/Icons/add.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Редактировать">
+                        <Image Source="Assets/Icons/edit.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Удалить">
+                        <Image Source="Assets/Icons/delete.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Поиск">
+                        <Image Source="Assets/Icons/search.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="QR-код / Печать стикера">
+                        <Image Source="Assets/Icons/qr.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Экспорт">
+                        <Image Source="Assets/Icons/export.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Импорт">
+                        <Image Source="Assets/Icons/import.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Синхронизация с ботом">
+                        <Image Source="Assets/Icons/sync.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Отчёт">
+                        <Image Source="Assets/Icons/report.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="История изменений">
+                        <Image Source="Assets/Icons/history.png" Width="24" Height="24"/>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- ОСНОВНОЕ ПОЛЕ -->
+        <Grid Grid.Row="2" Background="{StaticResource BgBrush}">
+            <TextBlock Text="Добро пожаловать в QR-Inventory"
+                       Foreground="{StaticResource TextBrush}"
+                       FontSize="24"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- НИЖНЯЯ СТРОКА -->
+        <Border Grid.Row="3"
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1,1,1,0">
+            <DockPanel Margin="10,0,10,0"
+                      VerticalAlignment="Center">
+                <TextBlock x:Name="StatusText"
+                           Text="Готово"
+                           Foreground="{StaticResource TextBrush}"
+                           DockPanel.Dock="Left"/>
+                <TextBlock x:Name="VersionText"
+                           Text="{Binding AppVersion}"
+                           Foreground="{StaticResource BorderBrush}"
+                           DockPanel.Dock="Right"/>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>
