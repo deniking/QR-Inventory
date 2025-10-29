@@ -1,30 +1,68 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using QR_Inventory.Views; // для LoginWindow
 using QR_Inventory.Properties;
 
 namespace QR_Inventory
 {
     public partial class App : Application
     {
-        public App()
+        protected override void OnStartup(StartupEventArgs e)
         {
-            // Читаем последнюю тему из настроек
-            string theme = Settings.Default.LastTheme;
-            if (string.IsNullOrWhiteSpace(theme))
-                theme = "DarkTheme";
+            base.OnStartup(e);
 
-            ApplyTheme(theme);
+            try
+            {
+                // 🚀 предотвращаем автоматическое завершение приложения после закрытия LoginWindow
+                Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+                // 🔹 применяем тему
+                string theme = Settings.Default.LastTheme;
+                if (string.IsNullOrWhiteSpace(theme))
+                    theme = "DarkTheme";
+                ApplyTheme(theme);
+
+                // 🔹 показываем логин модально
+                var loginWindow = new LoginWindow();
+                bool? result = loginWindow.ShowDialog();
+
+                // 🔹 если логин успешен — запускаем главное окно
+                if (result == true)
+                {
+                    var mainWindow = new MainWindow();
+                    this.MainWindow = mainWindow; // важно: назначаем в Application
+
+                    // ✅ возвращаем нормальный режим завершения — теперь закрытие MainWindow завершает программу
+                    Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+                    mainWindow.Show();
+                }
+                else
+                {
+                    // закрытие логина без входа или ошибка входа
+                    Shutdown();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Ошибка при запуске приложения:\n{ex.Message}",
+                    "Startup Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                Shutdown();
+            }
         }
 
         /// <summary>
-        /// Подхватить тему (DarkTheme.xaml или LightTheme.xaml) и применить ко всему приложению
+        /// Применение темы оформления (DarkTheme.xaml / LightTheme.xaml и т.д.)
         /// </summary>
         public static void ApplyTheme(string themeName)
         {
             try
             {
-                // Создаем словарь и указываем путь к теме
                 var themeDict = new ResourceDictionary
                 {
                     Source = new Uri(
@@ -32,21 +70,19 @@ namespace QR_Inventory
                         UriKind.Absolute)
                 };
 
-                // Найдём предыдущий словарь темы (любой файл из папки Themes)
+                // удаляем старую тему, если есть
                 var oldTheme = Current.Resources.MergedDictionaries
                     .FirstOrDefault(d =>
                         d.Source != null &&
                         d.Source.OriginalString.Contains("/Themes/", StringComparison.OrdinalIgnoreCase));
 
                 if (oldTheme != null)
-                {
                     Current.Resources.MergedDictionaries.Remove(oldTheme);
-                }
 
-                // Подключаем новый словарь
+                // добавляем новую тему
                 Current.Resources.MergedDictionaries.Add(themeDict);
 
-                // Сохраняем выбранную тему в Properties/Settings.settings
+                // сохраняем выбранную тему
                 Settings.Default.LastTheme = themeName;
                 Settings.Default.Save();
             }
@@ -56,7 +92,8 @@ namespace QR_Inventory
                     $"Ошибка применения темы:\n{ex.Message}",
                     "Theme Error",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                    MessageBoxImage.Error
+                );
             }
         }
     }

@@ -14,85 +14,69 @@
     <Grid Background="{StaticResource BgBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
+            <!-- Верхнее меню -->
             <RowDefinition Height="60"/>
+            <!-- Панель иконок -->
             <RowDefinition Height="*"/>
+            <!-- Основное поле -->
             <RowDefinition Height="25"/>
+            <!-- Нижняя строка -->
         </Grid.RowDefinitions>
 
-        <!-- ВЕРХНЕЕ МЕНЮ -->
-        <!-- ====== СТРОКА ГЛАВНОГО МЕНЮ ====== -->
+        <!-- ====== ГЛАВНОЕ МЕНЮ ====== -->
         <Border Grid.Row="0"
-        Background="{StaticResource PanelBrush}"
-        BorderBrush="{StaticResource BorderBrush}"
-        BorderThickness="0,0,0,1">
+                Background="{StaticResource PanelBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1">
 
-            <!-- убираем кастомный ItemContainerStyle, сначала добиваем механику -->
             <Menu Background="{StaticResource PanelBrush}"
-          Foreground="{StaticResource TextBrush}"
-          FontSize="14"
-          FontWeight="SemiBold"
-          BorderThickness="0"
-          SnapsToDevicePixels="True">
+                  Foreground="{StaticResource TextBrush}"
+                  FontSize="14"
+                  FontWeight="SemiBold"
+                  SnapsToDevicePixels="True"
+                  Padding="8,0">
 
-                <!-- 🔹 Основные пункты меню -->
-                <MenuItem Header="Главная"/>
-                <MenuItem Header="Компьютеры"/>
-                <MenuItem Header="Обслуживание"/>
-                <MenuItem Header="Отделы и кабинеты"/>
-                <MenuItem Header="Ответственные лица"/>
+                <!-- 🔹 Пункты верхнего меню -->
+                <MenuItem Header="Главная" Style="{StaticResource TopMenuItemStyle}"/>
+                <MenuItem Header="Компьютеры" Style="{StaticResource TopMenuItemStyle}"/>
+                <MenuItem Header="Обслуживание" Style="{StaticResource TopMenuItemStyle}"/>
+                <MenuItem Header="Отделы и кабинеты" Style="{StaticResource TopMenuItemStyle}"/>
+                <MenuItem Header="Ответственные лица" Style="{StaticResource TopMenuItemStyle}"/>
 
-                <!-- 🔧 Настройки с дочерними элементами -->
-                <MenuItem Header="Настройки">
-
-                    <!-- подменю 1 -->
+                <!-- 🔧 Настройки -->
+                <MenuItem Header="Настройки" Style="{StaticResource TopMenuItemStyle}">
                     <MenuItem Header="Пользователь"
-                      Background="{StaticResource PanelBrush}"
-                      Foreground="{StaticResource TextBrush}"
-                      Click="Settings_User_Click"/>
+                              Style="{StaticResource LeafMenuItemStyle}"
+                              Click="Settings_User_Click"/>
 
-                    <!-- подменю 2 -->
                     <MenuItem Header="База данных"
-                      Background="{StaticResource PanelBrush}"
-                      Foreground="{StaticResource TextBrush}"
-                      Click="Settings_DB_Click"/>
+                              Style="{StaticResource LeafMenuItemStyle}"
+                              Click="Settings_DB_Click"/>
 
-                    <!-- вложенное подменю "Интерфейс" -->
+                    <!-- Интерфейс -->
                     <MenuItem Header="Интерфейс"
-                      Background="{StaticResource PanelBrush}"
-                      Foreground="{StaticResource TextBrush}"
-                      StaysOpenOnClick="True">
-
-                        <!-- Пункты выбора темы -->
+                              Style="{StaticResource SubMenuItemStyle}">
                         <MenuItem Header="Тёмная тема"
-                          Background="{StaticResource PanelBrush}"
-                          Foreground="{StaticResource TextBrush}"
-                          Click="SetDarkTheme_Click"/>
-
+                                  Style="{StaticResource LeafMenuItemStyle}"
+                                  Click="SetDarkTheme_Click"/>
                         <MenuItem Header="Светлая тема"
-                          Background="{StaticResource PanelBrush}"
-                          Foreground="{StaticResource TextBrush}"
-                          Click="SetLightTheme_Click"/>
+                                  Style="{StaticResource LeafMenuItemStyle}"
+                                  Click="SetLightTheme_Click"/>
                     </MenuItem>
 
-                    <!-- подменю 4 -->
                     <MenuItem Header="Telegram-бот"
-                      Background="{StaticResource PanelBrush}"
-                      Foreground="{StaticResource TextBrush}"
-                      Click="Settings_Bot_Click"/>
+                              Style="{StaticResource LeafMenuItemStyle}"
+                              Click="Settings_Bot_Click"/>
                 </MenuItem>
 
-                <!-- О программе -->
                 <MenuItem Header="О программе"
-                  Click="About_Click"
-                  Background="{StaticResource PanelBrush}"
-                  Foreground="{StaticResource TextBrush}"/>
-
+                          Style="{StaticResource TopMenuItemStyle}"
+                          Click="About_Click"/>
             </Menu>
         </Border>
 
 
-
-        <!-- ПАНЕЛЬ ИКОНОК -->
+        <!-- ====== ПАНЕЛЬ ИКОНОК ====== -->
         <Border Grid.Row="1"
                 Background="{StaticResource PanelBrush}"
                 BorderBrush="{StaticResource BorderBrush}"
@@ -102,6 +86,7 @@
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center"
                             Margin="10">
+
                     <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Добавить">
                         <Image Source="Assets/Icons/add.png" Width="24" Height="24"/>
                     </Button>
@@ -136,7 +121,7 @@
             </ScrollViewer>
         </Border>
 
-        <!-- ОСНОВНОЕ ПОЛЕ -->
+        <!-- ====== ОСНОВНОЕ ПОЛЕ ====== -->
         <Grid Grid.Row="2" Background="{StaticResource BgBrush}">
             <TextBlock Text="Добро пожаловать в QR-Inventory"
                        Foreground="{StaticResource TextBrush}"
@@ -145,22 +130,34 @@
                        VerticalAlignment="Center"/>
         </Grid>
 
-        <!-- НИЖНЯЯ СТРОКА -->
+        <!-- ====== НИЖНЯЯ СТРОКА ====== -->
         <Border Grid.Row="3"
-                Background="{StaticResource PanelBrush}"
-                BorderBrush="{StaticResource BorderBrush}"
-                BorderThickness="1,1,1,0">
+        Background="{StaticResource PanelBrush}"
+        BorderBrush="{StaticResource BorderBrush}"
+        BorderThickness="1,1,1,0">
+
             <DockPanel Margin="10,0,10,0"
-                      VerticalAlignment="Center">
+               VerticalAlignment="Center"
+               LastChildFill="False">
+
+                <!-- Левая часть -->
                 <TextBlock x:Name="StatusText"
-                           Text="Готово"
-                           Foreground="{StaticResource TextBrush}"
-                           DockPanel.Dock="Left"/>
+                   Text="Готово"
+                   Foreground="{StaticResource TextBrush}"
+                   DockPanel.Dock="Left"
+                   FontSize="13" />
+
+                <!-- Правая часть -->
                 <TextBlock x:Name="VersionText"
-                           Text="{Binding AppVersion}"
-                           Foreground="{StaticResource BorderBrush}"
-                           DockPanel.Dock="Right"/>
+                   Text="{Binding AppVersion, StringFormat='v{0}'}"
+                   Foreground="{StaticResource TextBrush}"
+                   DockPanel.Dock="Right"
+                   FontSize="13"
+                   HorizontalAlignment="Right"
+                   TextAlignment="Right" />
             </DockPanel>
         </Border>
+
+
     </Grid>
 </Window>
