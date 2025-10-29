@@ -149,7 +149,7 @@
 
                 <!-- Правая часть -->
                 <TextBlock x:Name="VersionText"
-                   Text="{Binding AppVersion, StringFormat='v{0}'}"
+                   Text="{Binding AppVersion}"
                    Foreground="{StaticResource TextBrush}"
                    DockPanel.Dock="Right"
                    FontSize="13"

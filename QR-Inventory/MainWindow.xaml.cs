@@ -1,14 +1,22 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reflection;
+using System.Windows;
 
 namespace QR_Inventory
 {
     public partial class MainWindow : Window
     {
-        public string AppVersion { get; } = "1.0.0.0";
+        public string AppVersion { get; }
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // 🔹 Получаем реальную версию из сборки
+            var assembly = Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version;
+            AppVersion = $"ver. {version}";
+
             DataContext = this;
         }
 
@@ -39,7 +47,7 @@ namespace QR_Inventory
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("QR-Inventory\nВерсия 1.0.0.0", "О программе");
+            MessageBox.Show($"QR-Inventory\nВерсия {AppVersion}", "О программе");
         }
     }
 }
