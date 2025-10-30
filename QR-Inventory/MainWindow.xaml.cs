@@ -37,17 +37,32 @@ namespace QR_Inventory
 
         private void SetDarkTheme_Click(object sender, RoutedEventArgs e)
         {
-            App.ApplyTheme("DarkTheme");
+            App.ApplyTheme("DarkTheme"); // теперь мгновенно
         }
 
         private void SetLightTheme_Click(object sender, RoutedEventArgs e)
         {
-            App.ApplyTheme("LightTheme");
+            App.ApplyTheme("LightTheme"); // теперь мгновенно
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show($"QR-Inventory\nВерсия {AppVersion}", "О программе");
         }
+        private void SetLanguage_UA_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Мова інтерфейсу: Українська (ще в розробці)", "Мова");
+        }
+
+        private void SetLanguage_EN_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Interface language: English (in progress)", "Language");
+        }
+
+        private void SetLanguage_RU_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Язык интерфейса: Русский (в разработке)", "Язык");
+        }
+
     }
 }

@@ -3,27 +3,30 @@
 
     <!-- ===== КИСТИ (СВЕТЛАЯ ТЕМА) ===== -->
     <SolidColorBrush x:Key="BgBrush" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="PanelBrush" Color="#F5F5F5"/>
-    <SolidColorBrush x:Key="BorderBrush" Color="#C8C8C8"/>
+    <SolidColorBrush x:Key="PanelBrush" Color="#F3F3F3"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#C6C6C6"/>
     <SolidColorBrush x:Key="TextBrush" Color="#000000"/>
     <SolidColorBrush x:Key="AccentBrush" Color="#0078D7"/>
 
-    <!-- выпадающее меню -->
+    <!-- Выпадающее меню -->
     <SolidColorBrush x:Key="MenuPopupBrush" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="MenuHoverBrush" Color="#EAEAEA"/>
+    <!-- фон popup -->
+    <SolidColorBrush x:Key="MenuHoverBrush" Color="#E8F2FF"/>
+    <!-- при наведении голубоватая -->
     <SolidColorBrush x:Key="MenuBorderPopupBrush" Color="#D0D0D0"/>
+    <!-- рамка popup -->
 
     <!-- лёгкая тень под popup-меню -->
     <DropShadowEffect x:Key="PopupShadow"
                       BlurRadius="8"
                       ShadowDepth="2"
-                      Opacity="0.25"
-                      Color="Gray"/>
+                      Opacity="0.2"
+                      Color="#999999"/>
 
     <!-- ================= МЕНЮ: ВЕРХНИЙ УРОВЕНЬ ================= -->
     <Style x:Key="TopMenuItemStyle" TargetType="MenuItem">
-        <Setter Property="Background" Value="{StaticResource PanelBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource PanelBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
         <Setter Property="Padding" Value="14,6"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -47,12 +50,12 @@
                                    Focusable="False"
                                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                                    PopupAnimation="Slide">
-                                <Border Background="{StaticResource MenuPopupBrush}"
-                                        BorderBrush="{StaticResource MenuBorderPopupBrush}"
+                                <Border Background="{DynamicResource MenuPopupBrush}"
+                                        BorderBrush="{DynamicResource MenuBorderPopupBrush}"
                                         BorderThickness="1"
-                                        CornerRadius="3"
+                                        CornerRadius="4"
                                         Padding="4"
-                                        Effect="{StaticResource PopupShadow}">
+                                        Effect="{DynamicResource PopupShadow}">
                                     <ItemsPresenter/>
                                 </Border>
                             </Popup>
@@ -63,17 +66,17 @@
                         <!-- Hover -->
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Border" Property="Background"
-                                    Value="{StaticResource MenuHoverBrush}"/>
+                                    Value="{DynamicResource MenuHoverBrush}"/>
                             <Setter TargetName="Border" Property="BorderBrush"
-                                    Value="{StaticResource AccentBrush}"/>
+                                    Value="{DynamicResource AccentBrush}"/>
                         </Trigger>
 
                         <!-- Когда подменю открыто -->
                         <Trigger Property="IsSubmenuOpen" Value="True">
                             <Setter TargetName="Border" Property="Background"
-                                    Value="{StaticResource AccentBrush}"/>
+                                    Value="{DynamicResource AccentBrush}"/>
                             <Setter TargetName="Border" Property="BorderBrush"
-                                    Value="{StaticResource AccentBrush}"/>
+                                    Value="{DynamicResource AccentBrush}"/>
                             <Setter Property="Foreground" Value="#FFFFFF"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -85,8 +88,8 @@
 
     <!-- ================= МЕНЮ: ПУНКТ С ВЛОЖЕННЫМ ПРАВЫМ ПОДМЕНЮ ================= -->
     <Style x:Key="SubMenuItemStyle" TargetType="MenuItem">
-        <Setter Property="Background" Value="{StaticResource MenuPopupBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource MenuPopupBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
         <Setter Property="Padding" Value="14,6"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -122,12 +125,12 @@
                                    Focusable="False"
                                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                                    PopupAnimation="Slide">
-                                <Border Background="{StaticResource MenuPopupBrush}"
-                                        BorderBrush="{StaticResource MenuBorderPopupBrush}"
+                                <Border Background="{DynamicResource MenuPopupBrush}"
+                                        BorderBrush="{DynamicResource MenuBorderPopupBrush}"
                                         BorderThickness="1"
-                                        CornerRadius="3"
+                                        CornerRadius="4"
                                         Padding="4"
-                                        Effect="{StaticResource PopupShadow}">
+                                        Effect="{DynamicResource PopupShadow}">
                                     <ItemsPresenter/>
                                 </Border>
                             </Popup>
@@ -138,9 +141,9 @@
                         <!-- Hover -->
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Border" Property="Background"
-                                    Value="{StaticResource MenuHoverBrush}"/>
+                                    Value="{DynamicResource MenuHoverBrush}"/>
                             <Setter TargetName="Border" Property="BorderBrush"
-                                    Value="{StaticResource AccentBrush}"/>
+                                    Value="{DynamicResource AccentBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -151,8 +154,8 @@
 
     <!-- ================= МЕНЮ: ОБЫЧНЫЙ КОНЕЧНЫЙ ПУНКТ ================= -->
     <Style x:Key="LeafMenuItemStyle" TargetType="MenuItem">
-        <Setter Property="Background" Value="{StaticResource MenuPopupBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource MenuPopupBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
         <Setter Property="Padding" Value="14,6"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -175,9 +178,9 @@
                         <!-- Hover -->
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Border" Property="Background"
-                                    Value="{StaticResource MenuHoverBrush}"/>
+                                    Value="{DynamicResource MenuHoverBrush}"/>
                             <Setter TargetName="Border" Property="BorderBrush"
-                                    Value="{StaticResource AccentBrush}"/>
+                                    Value="{DynamicResource AccentBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -206,7 +209,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background"
-                                    Value="{StaticResource AccentBrush}"/>
+                                    Value="{DynamicResource AccentBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

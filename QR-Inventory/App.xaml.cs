@@ -85,6 +85,9 @@ namespace QR_Inventory
                 // сохраняем выбранную тему
                 Settings.Default.LastTheme = themeName;
                 Settings.Default.Save();
+
+                // 🔹 обновляем все открытые окна, чтобы тема применилась мгновенно
+                RefreshUI();
             }
             catch (Exception ex)
             {
@@ -94,6 +97,28 @@ namespace QR_Inventory
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                 );
+            }
+        }
+
+        /// <summary>
+        /// 🔄 Принудительно обновляет ресурсы всех открытых окон
+        /// (нужно, чтобы тема менялась без перезапуска программы)
+        /// </summary>
+        public static void RefreshUI()
+        {
+            foreach (Window window in Current.Windows)
+            {
+                // очистим словари окна
+                window.Resources.MergedDictionaries.Clear();
+
+                // добавим текущие ресурсы приложения
+                foreach (var dict in Current.Resources.MergedDictionaries)
+                {
+                    window.Resources.MergedDictionaries.Add(dict);
+                }
+
+                // перерисуем интерфейс
+                window.InvalidateVisual();
             }
         }
     }

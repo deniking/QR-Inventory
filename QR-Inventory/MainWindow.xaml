@@ -8,10 +8,10 @@
         Height="700"
         Width="1200"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource BgBrush}"
+        Background="{DynamicResource BgBrush}"
         Icon="Assets/Icons/app.ico">
 
-    <Grid Background="{StaticResource BgBrush}">
+    <Grid Background="{DynamicResource BgBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <!-- Верхнее меню -->
@@ -25,12 +25,12 @@
 
         <!-- ====== ГЛАВНОЕ МЕНЮ ====== -->
         <Border Grid.Row="0"
-                Background="{StaticResource PanelBrush}"
-                BorderBrush="{StaticResource BorderBrush}"
+                Background="{DynamicResource PanelBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="0,0,0,1">
 
-            <Menu Background="{StaticResource PanelBrush}"
-                  Foreground="{StaticResource TextBrush}"
+            <Menu Background="{DynamicResource PanelBrush}"
+                  Foreground="{DynamicResource TextBrush}"
                   FontSize="14"
                   FontWeight="SemiBold"
                   SnapsToDevicePixels="True"
@@ -44,30 +44,51 @@
                 <MenuItem Header="Ответственные лица" Style="{StaticResource TopMenuItemStyle}"/>
 
                 <!-- 🔧 Настройки -->
+                <!-- 🔧 Настройки -->
                 <MenuItem Header="Настройки" Style="{StaticResource TopMenuItemStyle}">
                     <MenuItem Header="Пользователь"
-                              Style="{StaticResource LeafMenuItemStyle}"
-                              Click="Settings_User_Click"/>
+              Tag="🧑‍💻"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="Settings_User_Click"/>
 
                     <MenuItem Header="База данных"
-                              Style="{StaticResource LeafMenuItemStyle}"
-                              Click="Settings_DB_Click"/>
+              Tag="🗄️"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="Settings_DB_Click"/>
 
                     <!-- Интерфейс -->
                     <MenuItem Header="Интерфейс"
-                              Style="{StaticResource SubMenuItemStyle}">
+              Tag="🎨"
+              Style="{StaticResource SubMenuItemStyle}">
                         <MenuItem Header="Тёмная тема"
-                                  Style="{StaticResource LeafMenuItemStyle}"
-                                  Click="SetDarkTheme_Click"/>
+                  Style="{StaticResource LeafMenuItemStyle}"
+                  Click="SetDarkTheme_Click"/>
                         <MenuItem Header="Светлая тема"
-                                  Style="{StaticResource LeafMenuItemStyle}"
-                                  Click="SetLightTheme_Click"/>
+                  Style="{StaticResource LeafMenuItemStyle}"
+                  Click="SetLightTheme_Click"/>
+                    </MenuItem>
+
+                    <!-- 🌐 Языки -->
+                    <MenuItem Header="Языки"
+              Tag="🌐"
+              Style="{StaticResource SubMenuItemStyle}">
+                        <MenuItem Header="Українська"
+                  Style="{StaticResource LeafMenuItemStyle}"
+                  Click="SetLanguage_UA_Click"/>
+                        <MenuItem Header="English"
+                  Style="{StaticResource LeafMenuItemStyle}"
+                  Click="SetLanguage_EN_Click"/>
+                        <MenuItem Header="Русский"
+                  Style="{StaticResource LeafMenuItemStyle}"
+                  Click="SetLanguage_RU_Click"/>
                     </MenuItem>
 
                     <MenuItem Header="Telegram-бот"
-                              Style="{StaticResource LeafMenuItemStyle}"
-                              Click="Settings_Bot_Click"/>
+              Tag="🤖"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="Settings_Bot_Click"/>
                 </MenuItem>
+
 
                 <MenuItem Header="О программе"
                           Style="{StaticResource TopMenuItemStyle}"
@@ -78,8 +99,8 @@
 
         <!-- ====== ПАНЕЛЬ ИКОНОК ====== -->
         <Border Grid.Row="1"
-                Background="{StaticResource PanelBrush}"
-                BorderBrush="{StaticResource BorderBrush}"
+                Background="{DynamicResource PanelBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="0,0,0,1">
             <ScrollViewer HorizontalScrollBarVisibility="Auto"
                           VerticalScrollBarVisibility="Disabled">
@@ -122,9 +143,9 @@
         </Border>
 
         <!-- ====== ОСНОВНОЕ ПОЛЕ ====== -->
-        <Grid Grid.Row="2" Background="{StaticResource BgBrush}">
+        <Grid Grid.Row="2" Background="{DynamicResource BgBrush}">
             <TextBlock Text="Добро пожаловать в QR-Inventory"
-                       Foreground="{StaticResource TextBrush}"
+                       Foreground="{DynamicResource TextBrush}"
                        FontSize="24"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
@@ -132,32 +153,30 @@
 
         <!-- ====== НИЖНЯЯ СТРОКА ====== -->
         <Border Grid.Row="3"
-        Background="{StaticResource PanelBrush}"
-        BorderBrush="{StaticResource BorderBrush}"
-        BorderThickness="1,1,1,0">
+                Background="{DynamicResource PanelBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1,1,1,0">
 
             <DockPanel Margin="10,0,10,0"
-               VerticalAlignment="Center"
-               LastChildFill="False">
+                       VerticalAlignment="Center"
+                       LastChildFill="False">
 
                 <!-- Левая часть -->
                 <TextBlock x:Name="StatusText"
-                   Text="Готово"
-                   Foreground="{StaticResource TextBrush}"
-                   DockPanel.Dock="Left"
-                   FontSize="13" />
+                           Text="Готово"
+                           Foreground="{DynamicResource TextBrush}"
+                           DockPanel.Dock="Left"
+                           FontSize="13" />
 
                 <!-- Правая часть -->
                 <TextBlock x:Name="VersionText"
-                   Text="{Binding AppVersion}"
-                   Foreground="{StaticResource TextBrush}"
-                   DockPanel.Dock="Right"
-                   FontSize="13"
-                   HorizontalAlignment="Right"
-                   TextAlignment="Right" />
+                           Text="{Binding AppVersion}"
+                           Foreground="{DynamicResource TextBrush}"
+                           DockPanel.Dock="Right"
+                           FontSize="13"
+                           HorizontalAlignment="Right"
+                           TextAlignment="Right" />
             </DockPanel>
         </Border>
-
-
     </Grid>
 </Window>
