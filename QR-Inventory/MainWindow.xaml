@@ -24,17 +24,17 @@
         </Grid.RowDefinitions>
 
         <!-- ====== ГЛАВНОЕ МЕНЮ ====== -->
-        <Border Grid.Row="0"
-                Background="{DynamicResource PanelBrush}"
-                BorderBrush="{DynamicResource BorderBrush}"
-                BorderThickness="0,0,0,1">
+        <Border
+        Background="{DynamicResource PanelBrush}"
+        BorderBrush="{DynamicResource BorderBrush}"
+        BorderThickness="0,0,0,1">
 
             <Menu Background="{DynamicResource PanelBrush}"
-                  Foreground="{DynamicResource TextBrush}"
-                  FontSize="14"
-                  FontWeight="SemiBold"
-                  SnapsToDevicePixels="True"
-                  Padding="8,0">
+          Foreground="{DynamicResource TextBrush}"
+          FontSize="14"
+          FontWeight="SemiBold"
+          SnapsToDevicePixels="True"
+          Padding="8,10">
 
                 <!-- 🔹 Пункты верхнего меню -->
                 <MenuItem Header="Главная" Style="{StaticResource TopMenuItemStyle}"/>
@@ -44,57 +44,69 @@
                 <MenuItem Header="Ответственные лица" Style="{StaticResource TopMenuItemStyle}"/>
 
                 <!-- 🔧 Настройки -->
-                <!-- 🔧 Настройки -->
                 <MenuItem Header="Настройки" Style="{StaticResource TopMenuItemStyle}">
+
+                    <!-- 👤 Пользователь -->
                     <MenuItem Header="Пользователь"
-              Tag="🧑‍💻"
-              Style="{StaticResource LeafMenuItemStyle}"
-              Click="Settings_User_Click"/>
+                      Icon="Assets/Icons/user.png"
+                      Style="{StaticResource LeafMenuItemStyle}"
+                      Click="Settings_User_Click"/>
 
+                    <!-- 🗄️ База данных -->
                     <MenuItem Header="База данных"
-              Tag="🗄️"
-              Style="{StaticResource LeafMenuItemStyle}"
-              Click="Settings_DB_Click"/>
+                      Icon="Assets/Icons/db.png"
+                      Style="{StaticResource LeafMenuItemStyle}"
+                      Click="Settings_DB_Click"/>
 
-                    <!-- Интерфейс -->
+                    <!-- 🎨 Интерфейс -->
                     <MenuItem Header="Интерфейс"
-              Tag="🎨"
-              Style="{StaticResource SubMenuItemStyle}">
+                      Icon="Assets/Icons/paint.png"
+                      Style="{StaticResource SubMenuItemStyle}">
                         <MenuItem Header="Тёмная тема"
-                  Style="{StaticResource LeafMenuItemStyle}"
-                  Click="SetDarkTheme_Click"/>
+                          Icon="Assets/Icons/moon.png"
+                          Style="{StaticResource LeafMenuItemStyle}"
+                          Click="SetDarkTheme_Click"/>
                         <MenuItem Header="Светлая тема"
-                  Style="{StaticResource LeafMenuItemStyle}"
-                  Click="SetLightTheme_Click"/>
+                          Icon="Assets/Icons/sun.png"
+                          Style="{StaticResource LeafMenuItemStyle}"
+                          Click="SetLightTheme_Click"/>
                     </MenuItem>
 
                     <!-- 🌐 Языки -->
                     <MenuItem Header="Языки"
-              Tag="🌐"
-              Style="{StaticResource SubMenuItemStyle}">
+                      Icon="Assets/Icons/lang.png"
+                      Style="{StaticResource SubMenuItemStyle}">
                         <MenuItem Header="Українська"
-                  Style="{StaticResource LeafMenuItemStyle}"
-                  Click="SetLanguage_UA_Click"/>
+                          IsCheckable="True"
+                          IsChecked="True"
+                          Style="{StaticResource LeafMenuItemStyle}"
+                          Click="SetLanguage_UA_Click"/>
                         <MenuItem Header="English"
-                  Style="{StaticResource LeafMenuItemStyle}"
-                  Click="SetLanguage_EN_Click"/>
+                          IsCheckable="True"
+                          Style="{StaticResource LeafMenuItemStyle}"
+                          Click="SetLanguage_EN_Click"/>
                         <MenuItem Header="Русский"
-                  Style="{StaticResource LeafMenuItemStyle}"
-                  Click="SetLanguage_RU_Click"/>
+                          IsCheckable="True"
+                          Style="{StaticResource LeafMenuItemStyle}"
+                          Click="SetLanguage_RU_Click"/>
                     </MenuItem>
 
+                    <!-- 🤖 Telegram-бот -->
                     <MenuItem Header="Telegram-бот"
-              Tag="🤖"
-              Style="{StaticResource LeafMenuItemStyle}"
-              Click="Settings_Bot_Click"/>
+                      Icon="Assets/Icons/bot.png"
+                      Style="{StaticResource LeafMenuItemStyle}"
+                      Click="Settings_Bot_Click"/>
+
                 </MenuItem>
 
-
+                <!-- ℹ️ О программе -->
                 <MenuItem Header="О программе"
-                          Style="{StaticResource TopMenuItemStyle}"
-                          Click="About_Click"/>
+                  Icon="Assets/Icons/info.png"
+                  Style="{StaticResource TopMenuItemStyle}"
+                  Click="About_Click"/>
             </Menu>
         </Border>
+
 
 
         <!-- ====== ПАНЕЛЬ ИКОНОК ====== -->
@@ -109,7 +121,7 @@
                             Margin="10">
 
                     <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Добавить">
-                        <Image Source="Assets/Icons/add.png" Width="24" Height="24"/>
+                        <Image Source="Assets/Icons/add.png" Width="25" Height="25"/>
                     </Button>
                     <Button Style="{StaticResource IconBarButtonStyle}" ToolTip="Редактировать">
                         <Image Source="Assets/Icons/edit.png" Width="24" Height="24"/>
