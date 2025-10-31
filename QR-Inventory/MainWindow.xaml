@@ -25,16 +25,16 @@
 
         <!-- ====== ГЛАВНОЕ МЕНЮ ====== -->
         <Border
-        Background="{DynamicResource PanelBrush}"
-        BorderBrush="{DynamicResource BorderBrush}"
-        BorderThickness="0,0,0,1">
+    Background="{DynamicResource PanelBrush}"
+    BorderBrush="{DynamicResource BorderBrush}"
+    BorderThickness="0,0,0,1">
 
             <Menu Background="{DynamicResource PanelBrush}"
-          Foreground="{DynamicResource TextBrush}"
-          FontSize="14"
-          FontWeight="SemiBold"
-          SnapsToDevicePixels="True"
-          Padding="8,10">
+      Foreground="{DynamicResource TextBrush}"
+      FontSize="14"
+      FontWeight="SemiBold"
+      SnapsToDevicePixels="True"
+      Padding="8,10">
 
                 <!-- 🔹 Пункты верхнего меню -->
                 <MenuItem Header="Главная" Style="{StaticResource TopMenuItemStyle}"/>
@@ -60,36 +60,49 @@
 
                     <!-- 🎨 Интерфейс -->
                     <MenuItem Header="Интерфейс"
-                      Icon="Assets/Icons/paint.png"
-                      Style="{StaticResource SubMenuItemStyle}">
-                        <MenuItem Header="Тёмная тема"
-                          Icon="Assets/Icons/moon.png"
-                          Style="{StaticResource LeafMenuItemStyle}"
-                          Click="SetDarkTheme_Click"/>
-                        <MenuItem Header="Светлая тема"
-                          Icon="Assets/Icons/sun.png"
-                          Style="{StaticResource LeafMenuItemStyle}"
-                          Click="SetLightTheme_Click"/>
+          Icon="Assets/Icons/paint.png"
+          Style="{StaticResource SubMenuItemStyle}">
+
+                        <MenuItem x:Name="MenuDarkTheme"
+              Header="Тёмная тема"
+              Icon="Assets/Icons/moon.png"
+              IsCheckable="True"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="SetDarkTheme_Click"/>
+
+                        <MenuItem x:Name="MenuLightTheme"
+              Header="Светлая тема"
+              Icon="Assets/Icons/sun.png"
+              IsCheckable="True"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="SetLightTheme_Click"/>
                     </MenuItem>
 
                     <!-- 🌐 Языки -->
                     <MenuItem Header="Языки"
-                      Icon="Assets/Icons/lang.png"
-                      Style="{StaticResource SubMenuItemStyle}">
-                        <MenuItem Header="Українська"
-                          IsCheckable="True"
-                          IsChecked="True"
-                          Style="{StaticResource LeafMenuItemStyle}"
-                          Click="SetLanguage_UA_Click"/>
-                        <MenuItem Header="English"
-                          IsCheckable="True"
-                          Style="{StaticResource LeafMenuItemStyle}"
-                          Click="SetLanguage_EN_Click"/>
-                        <MenuItem Header="Русский"
-                          IsCheckable="True"
-                          Style="{StaticResource LeafMenuItemStyle}"
-                          Click="SetLanguage_RU_Click"/>
+          Icon="Assets/Icons/lang.png"
+          Style="{StaticResource SubMenuItemStyle}">
+
+                        <MenuItem x:Name="LangUA"
+              Header="Українська"
+              IsCheckable="True"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="SetLanguage_UA_Click"/>
+
+                        <MenuItem x:Name="LangEN"
+              Header="English"
+              IsCheckable="True"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="SetLanguage_EN_Click"/>
+
+                        <MenuItem x:Name="LangRU"
+              Header="Русский"
+              IsCheckable="True"
+              Style="{StaticResource LeafMenuItemStyle}"
+              Click="SetLanguage_RU_Click"/>
                     </MenuItem>
+
+
 
                     <!-- 🤖 Telegram-бот -->
                     <MenuItem Header="Telegram-бот"
@@ -106,6 +119,7 @@
                   Click="About_Click"/>
             </Menu>
         </Border>
+
 
 
 

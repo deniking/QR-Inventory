@@ -21,36 +21,36 @@
                       Color="Black"/>
 
     <!-- ================= ВЕРХНИЙ УРОВЕНЬ МЕНЮ ================= -->
-    <!-- было: с рамкой. стало: без рамки -->
     <Style x:Key="TopMenuItemStyle" TargetType="MenuItem">
         <Setter Property="Background" Value="{DynamicResource PanelBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-        <Setter Property="Padding" Value="14,6"/>
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="Margin" Value="3,0"/>
+        <!-- 🔹 добавляем зазор между пунктами -->
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
                     <Border x:Name="Border"
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="3">
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="3">
                         <Grid>
                             <ContentPresenter ContentSource="Header"
-                                              Margin="6,0"
-                                              VerticalAlignment="Center"/>
-
-                            <!-- Popup -->
+                                          VerticalAlignment="Center"
+                                          Margin="4,0"/>
+                            <!-- 🔹 чуть-чуть внутренний отступ -->
                             <Popup x:Name="PART_Popup"
-                                   Placement="Bottom"
-                                   AllowsTransparency="True"
-                                   Focusable="False"
-                                   IsOpen="{TemplateBinding IsSubmenuOpen}"
-                                   PopupAnimation="Slide">
+                               Placement="Bottom"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               IsOpen="{TemplateBinding IsSubmenuOpen}"
+                               PopupAnimation="Slide">
                                 <Border Background="{DynamicResource MenuPopupBrush}"
-                                        BorderBrush="{DynamicResource MenuBorderPopupBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="4"
-                                        Padding="4"
-                                        Effect="{DynamicResource PopupShadow}">
+                                    BorderBrush="{DynamicResource MenuBorderPopupBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="4"
+                                    Padding="4"
+                                    Effect="{DynamicResource PopupShadow}">
                                     <ItemsPresenter/>
                                 </Border>
                             </Popup>
@@ -61,7 +61,6 @@
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource MenuHoverBrush}"/>
                         </Trigger>
-
                         <Trigger Property="IsSubmenuOpen" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource AccentBrush}"/>
                             <Setter Property="Foreground" Value="#FFFFFF"/>
@@ -73,59 +72,69 @@
     </Style>
 
 
-    <!-- ================= ПУНКТ С ВЛОЖЕННЫМ ПРАВЫМ ПОДМЕНЮ ================= -->
-    <!-- было: Background="#..." и Border. стало: через DynamicResource и без лишней рамки -->
+
+    <!-- ================= ВЛОЖЕННОЕ ПОДМЕНЮ (например: Интерфейс, Языки) ================= -->
     <Style x:Key="SubMenuItemStyle" TargetType="MenuItem">
         <Setter Property="Background" Value="{DynamicResource MenuPopupBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-        <Setter Property="Padding" Value="14,6"/>
+        <Setter Property="Padding" Value="6,4"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
                     <Border x:Name="Border"
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="3"
-                            Margin="1">
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="3"
+                        Margin="1">
                         <Grid>
-                            <DockPanel LastChildFill="True">
-                                <!-- Иконка слева -->
-                                <Image x:Name="IconImage"
-                                       Source="{TemplateBinding Icon}"
-                                       Width="16" Height="16"
-                                       Margin="4,0,6,0"
-                                       VerticalAlignment="Center"/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <!-- фиксированный отступ под иконку -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- текст -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- стрелка -->
+                            </Grid.ColumnDefinitions>
 
-                                <!-- Текст -->
-                                <ContentPresenter ContentSource="Header"
-                                                  Margin="2,0,20,0"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Left"/>
-                            </DockPanel>
+                            <!-- 🖼️ Иконка (если нет — просто пустое место сохраняется) -->
+                            <Image x:Name="IconImage"
+                               Grid.Column="0"
+                               Source="{TemplateBinding Icon}"
+                               Width="16" Height="16"
+                               Margin="2,0,4,0"
+                               VerticalAlignment="Center"/>
 
-                            <!-- Стрелка -->
-                            <TextBlock Text="▶"
-                                       Foreground="{TemplateBinding Foreground}"
-                                       FontSize="10"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"
-                                       Margin="0,0,5,0"/>
+                            <!-- 📝 Текст -->
+                            <ContentPresenter Grid.Column="1"
+                                          ContentSource="Header"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,8,0"/>
 
-                            <!-- Popup -->
+                            <!-- ▶ Стрелка справа -->
+                            <TextBlock Grid.Column="2"
+                                   Text="▶"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   FontSize="10"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="0,0,5,0"/>
+
+                            <!-- Вложенное меню (Popup) -->
                             <Popup x:Name="PART_Popup"
-                                   Placement="Right"
-                                   HorizontalOffset="0"
-                                   VerticalOffset="-2"
-                                   AllowsTransparency="True"
-                                   Focusable="False"
-                                   IsOpen="{TemplateBinding IsSubmenuOpen}"
-                                   PopupAnimation="Slide">
+                               Placement="Right"
+                               HorizontalOffset="0"
+                               VerticalOffset="-2"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               IsOpen="{TemplateBinding IsSubmenuOpen}"
+                               PopupAnimation="Slide">
                                 <Border Background="{DynamicResource MenuPopupBrush}"
-                                        BorderBrush="{DynamicResource MenuBorderPopupBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="4"
-                                        Padding="4"
-                                        Effect="{DynamicResource PopupShadow}">
+                                    BorderBrush="{DynamicResource MenuBorderPopupBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="4"
+                                    Padding="4"
+                                    Effect="{DynamicResource PopupShadow}">
                                     <ItemsPresenter/>
                                 </Border>
                             </Popup>
@@ -133,11 +142,7 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <!-- если иконки нет — скрываем -->
-                        <Trigger Property="Icon" Value="{x:Null}">
-                            <Setter TargetName="IconImage" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-
+                        <!-- Hover -->
                         <Trigger Property="IsHighlighted" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource MenuHoverBrush}"/>
                         </Trigger>
@@ -148,37 +153,52 @@
     </Style>
 
 
+
+
+
     <!-- ================= ОБЫЧНЫЙ КОНЕЧНЫЙ ПУНКТ ================= -->
     <Style x:Key="LeafMenuItemStyle" TargetType="MenuItem">
         <Setter Property="Background" Value="{DynamicResource MenuPopupBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="Padding" Value="2,4"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
                     <Border x:Name="Border"
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="3"
-                            Margin="1">
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="3"
+                        Margin="1">
                         <DockPanel LastChildFill="True">
-                            <!-- Иконка -->
-                            <Image x:Name="IconImage"
-                                   Source="{TemplateBinding Icon}"
-                                   Width="16" Height="16"
-                                   Margin="4,0,6,0"
-                                   VerticalAlignment="Center"/>
+                            <!-- ✅ Галочка -->
+                            <Path x:Name="CheckMark"
+                              Data="M0,5 L3,8 L8,0"
+                              Stroke="{TemplateBinding Foreground}"
+                              StrokeThickness="2"
+                              StrokeEndLineCap="Round"
+                              StrokeStartLineCap="Round"
+                              Visibility="Hidden"
+                              VerticalAlignment="Center"
+                              Margin="6,0,4,0"/>
 
-                            <!-- Текст -->
+                            <!-- 🖼️ Иконка -->
+                            <Image x:Name="IconImage"
+                               Source="{TemplateBinding Icon}"
+                               Width="16" Height="16"
+                               Margin="0,0,6,0"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed"/>
+
+                            <!-- 📝 Текст -->
                             <ContentPresenter ContentSource="Header"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Left"
-                                              Margin="2,0,6,0"/>
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="0,0,6,0"/>
                         </DockPanel>
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <!-- скрываем иконку если её нет -->
+                        <!-- если иконки нет — скрываем полностью -->
                         <Trigger Property="Icon" Value="{x:Null}">
                             <Setter TargetName="IconImage" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
@@ -188,8 +208,9 @@
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource MenuHoverBrush}"/>
                         </Trigger>
 
-                        <!-- Активный пункт (вдруг где-то используешь IsChecked) -->
+                        <!-- Checked -->
                         <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource MenuHoverBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -199,8 +220,8 @@
     </Style>
 
 
+
     <!-- ================= ПАНЕЛЬ ИКОНОК ================= -->
-    <!-- этот стиль я вернул как был у тебя, только цвета сделал динамическими -->
     <Style x:Key="IconBarButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -209,7 +230,6 @@
         <Setter Property="Margin" Value="4"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -225,7 +245,6 @@
                                               VerticalAlignment="Center"/>
                         </Viewbox>
                     </Border>
-
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource MenuHoverBrush}"/>

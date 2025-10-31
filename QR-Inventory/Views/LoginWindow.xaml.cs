@@ -144,5 +144,9 @@ namespace QR_Inventory.Views
         public bool RememberMe { get; set; }
         public string? LastUser { get; set; }
         public string? LastPassword { get; set; }
+
+        // 🆕 язык храним коротко (RU, UA, EN)
+        public string LastLanguage { get; set; } = "RU";
     }
+
 }
