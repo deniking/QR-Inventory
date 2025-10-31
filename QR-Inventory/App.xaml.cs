@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using QR_Inventory.Views; // для LoginWindow
 using QR_Inventory.Properties;
+using System.Collections.Generic;
 
 namespace QR_Inventory
 {
@@ -17,13 +19,13 @@ namespace QR_Inventory
                 // 🚀 предотвращаем автоматическое завершение приложения после закрытия LoginWindow
                 Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-                // 🔹 применяем тему
+                // 🔹 применяем сохранённую тему (по умолчанию тёмную)
                 string theme = Settings.Default.LastTheme;
                 if (string.IsNullOrWhiteSpace(theme))
                     theme = "DarkTheme";
                 ApplyTheme(theme);
 
-                // 🔹 показываем логин модально
+                // 🔹 показываем окно логина
                 var loginWindow = new LoginWindow();
                 bool? result = loginWindow.ShowDialog();
 
@@ -31,16 +33,18 @@ namespace QR_Inventory
                 if (result == true)
                 {
                     var mainWindow = new MainWindow();
-                    this.MainWindow = mainWindow; // важно: назначаем в Application
+                    this.MainWindow = mainWindow;
 
                     // ✅ возвращаем нормальный режим завершения — теперь закрытие MainWindow завершает программу
                     Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
                     mainWindow.Show();
+
+                    // синхронизируем галочки меню при старте
+                    UpdateThemeMenuChecks(theme);
                 }
                 else
                 {
-                    // закрытие логина без входа или ошибка входа
                     Shutdown();
                 }
             }
@@ -86,8 +90,11 @@ namespace QR_Inventory
                 Settings.Default.LastTheme = themeName;
                 Settings.Default.Save();
 
-                // 🔹 обновляем все открытые окна, чтобы тема применилась мгновенно
+                // 🔄 обновляем интерфейс всех окон
                 RefreshUI();
+
+                // ✅ обновляем галочки в меню
+                UpdateThemeMenuChecks(themeName);
             }
             catch (Exception ex)
             {
@@ -102,23 +109,57 @@ namespace QR_Inventory
 
         /// <summary>
         /// 🔄 Принудительно обновляет ресурсы всех открытых окон
-        /// (нужно, чтобы тема менялась без перезапуска программы)
         /// </summary>
         public static void RefreshUI()
         {
             foreach (Window window in Current.Windows)
             {
-                // очистим словари окна
                 window.Resources.MergedDictionaries.Clear();
 
-                // добавим текущие ресурсы приложения
                 foreach (var dict in Current.Resources.MergedDictionaries)
                 {
                     window.Resources.MergedDictionaries.Add(dict);
                 }
 
-                // перерисуем интерфейс
                 window.InvalidateVisual();
+            }
+        }
+
+        /// <summary>
+        /// ✅ Обновляет состояние галочек (IsChecked) у пунктов меню "Светлая/Тёмная тема"
+        /// </summary>
+        private static void UpdateThemeMenuChecks(string themeName)
+        {
+            foreach (Window window in Current.Windows)
+            {
+                foreach (var menuItem in window.FindVisualChildren<System.Windows.Controls.MenuItem>())
+                {
+                    if (menuItem.Header?.ToString() == "Тёмная тема")
+                        menuItem.IsChecked = themeName.Equals("DarkTheme", StringComparison.OrdinalIgnoreCase);
+                    else if (menuItem.Header?.ToString() == "Светлая тема")
+                        menuItem.IsChecked = themeName.Equals("LightTheme", StringComparison.OrdinalIgnoreCase);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Вспомогательный метод для обхода визуального дерева (поиск MenuItem'ов)
+    /// </summary>
+    public static class VisualTreeHelperExtensions
+    {
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) yield break;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+                if (child is T typedChild)
+                    yield return typedChild;
+
+                foreach (var subChild in FindVisualChildren<T>(child))
+                    yield return subChild;
             }
         }
     }
