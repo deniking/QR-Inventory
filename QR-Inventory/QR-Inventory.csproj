@@ -21,10 +21,15 @@
   <!-- чтобы .ico попал как ресурс приложения -->
   <ItemGroup>
     <None Remove="Assets\Icons\app.ico" />
+    <None Remove="Assets\Icons\db.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Themes\DarkTheme.xaml" />
     <Page Remove="Themes\LightTheme.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="10.3.3" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +37,9 @@
 
     <!-- наши кнопки панели (заглушки, ты потом подменишь своими) -->
     <Resource Include="Assets\Icons\add.png" />
+    <Resource Include="Assets\Icons\db.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Icons\edit.png" />
     <Resource Include="Assets\Icons\delete.png" />
     <Resource Include="Assets\Icons\search.png" />

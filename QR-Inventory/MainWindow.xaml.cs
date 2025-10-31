@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QR_Inventory.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -58,10 +59,7 @@ namespace QR_Inventory
             MessageBox.Show("Настройки пользователя (заглушка)");
         }
 
-        private void Settings_DB_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Настройки базы данных (заглушка)");
-        }
+        
 
         private void Settings_Bot_Click(object sender, RoutedEventArgs e)
         {
@@ -195,5 +193,14 @@ namespace QR_Inventory
                 }
             }
         }
+        private void Settings_DB_Click(object sender, RoutedEventArgs e)
+        {
+            var dbWindow = new DatabaseCreateWindow
+            {
+                Owner = this
+            };
+            dbWindow.ShowDialog();
+        }
+
     }
 }

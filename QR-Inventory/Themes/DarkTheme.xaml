@@ -8,6 +8,13 @@
     <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="AccentBrush" Color="#0078D7"/>
 
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#252525"/>
+    <SolidColorBrush x:Key="ButtonBrush" Color="#333333"/>
+    <SolidColorBrush x:Key="ButtonTextBrush" Color="#FFFFFF"/>
+
+
+
     <!-- Выпадающее меню -->
     <SolidColorBrush x:Key="MenuPopupBrush" Color="#2F2F31"/>
     <SolidColorBrush x:Key="MenuHoverBrush" Color="#3A3A3C"/>
